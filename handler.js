@@ -25,11 +25,21 @@ module.exports.sendEmail = async (event, context) => {
     subject: 'Hi',
     text: 'I love sunny days!',
   };
- 
+
   try {
     await sendMailgunEmail(emailData);
-    return { message: 'Email sent!' };
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: "Email sent!",
+      }),
+    };
   } catch (e) {
-    return { message: 'No email sent :(' }
+    return {
+      statusCode: 422,
+      body: JSON.stringify({
+        message: "No email sent :(",
+      }),
+    }
   }
 };
